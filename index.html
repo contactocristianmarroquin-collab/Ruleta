@@ -82,11 +82,26 @@
             <!-- Wheel Outer Frame -->
             <div class="relative p-3 sm:p-5 rounded-full bg-festivePurple wheel-container-shadow border-4 sm:border-8 border-white">
                 
-                <!-- Pointer / Indicator Arrow -->
-                <div class="absolute -top-6 sm:-top-7 left-1/2 -translate-x-1/2 z-30 filter drop-shadow-lg animate-pointer">
-                    <div class="w-0 h-0 border-l-[16px] sm:border-l-[20px] border-l-transparent border-r-[16px] sm:border-r-[20px] border-r-transparent border-t-[32px] sm:border-t-[40px] border-t-festivePurple"></div>
-                    <div class="w-0 h-0 border-l-[10px] sm:border-l-[14px] border-l-transparent border-r-[10px] sm:border-r-[14px] border-r-transparent border-t-[22px] sm:border-t-[28px] border-t-festiveYellow absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2"></div>
+                <!-- Flecha indicadora -->
+                <div class="absolute -top-2 sm:-top-3 left-[45%] -translate-x-1/2 z-30 animate-pointer">
+
+                    <!-- Base exterior morada -->
+                    <div class="relative w-0 h-0
+                                border-l-[20px] sm:border-l-[24px] border-l-transparent
+                                border-r-[20px] sm:border-r-[24px] border-r-transparent
+                                border-t-[38px] sm:border-t-[46px] border-t-festivePurple">
+
+                        <!-- Punta interior amarilla, superpuesta -->
+                        <div class="absolute top-[-36px] sm:top-[-44px] left-1/2 -translate-x-1/2
+                                    w-0 h-0
+                                    border-l-[13px] sm:border-l-[16px] border-l-transparent
+                                    border-r-[13px] sm:border-r-[16px] border-r-transparent
+                                    border-t-[27px] sm:border-t-[34px] border-t-festiveYellow">
+                        </div>
+
+                    </div>
                 </div>
+
 
                 <!-- Canvas Wheel -->
                 <canvas id="wheelCanvas" width="500" height="500" class="w-[300px] h-[300px] sm:w-[440px] sm:h-[440px] rounded-full transition-all duration-300"></canvas>
@@ -126,19 +141,19 @@
                 <!-- Slot 1 -->
                 <div id="slot-1" class="p-2 rounded-xl border-2 border-festivePurple/20 bg-yellow-50 flex flex-col items-center text-center transition-all">
                     <span class="w-5 h-5 rounded-full bg-festiveCyan text-white font-black text-xs flex items-center justify-center mb-1">1</span>
-                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Jenga Gigante</p>
+                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Por descubrir</p>
                 </div>
 
                 <!-- Slot 2 -->
                 <div id="slot-2" class="p-2 rounded-xl border-2 border-festivePurple/20 bg-yellow-50 flex flex-col items-center text-center transition-all">
                     <span class="w-5 h-5 rounded-full bg-festiveMagenta text-white font-black text-xs flex items-center justify-center mb-1">2</span>
-                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Sacudo post-it</p>
+                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Por descubrir</p>
                 </div>
 
                 <!-- Slot 3 -->
                 <div id="slot-3" class="p-2 rounded-xl border-2 border-festivePurple/20 bg-yellow-50 flex flex-col items-center text-center transition-all">
                     <span class="w-5 h-5 rounded-full bg-festiveOrange text-white font-black text-xs flex items-center justify-center mb-1">3</span>
-                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Encesta los globos</p>
+                    <p class="font-extrabold text-xs text-festivePurple slot-title leading-tight">Por descubrir</p>
                 </div>
             </div>
 
@@ -450,6 +465,11 @@
                 slotElem.classList.add('bg-festivePurple', 'border-festiveYellow', 'text-white');
 
                 const titleElem = slotElem.querySelector('.slot-title');
+
+                // Revelar el juego que acaba de salir
+                titleElem.textContent = slices[index].labelLines.join(' ');
+
+                // Cambiar el color del texto del juego revelado
                 titleElem.classList.remove('text-festivePurple');
                 titleElem.classList.add('text-festiveYellow');
             }
@@ -533,18 +553,40 @@
         }
 
         function resetGameSequence() {
+            // Reiniciar el turno y el estado de la ruleta
             currentTurn = 0;
+            isSpinning = false;
+
+            // Restaurar el indicador de progreso
             updateProgressState();
+
+            // Ocultar el botón de reinicio
             document.getElementById('resetBtn').classList.add('hidden');
 
+            // Restaurar los tres espacios de juegos
             for (let i = 1; i <= 3; i++) {
                 const slotElem = document.getElementById(`slot-${i}`);
-                slotElem.className = 'p-2 rounded-xl border-2 border-festivePurple/20 bg-yellow-50 flex flex-col items-center text-center transition-all';
-                
+
+                // Restaurar el diseño original del espacio
+                slotElem.className =
+                    'p-2 rounded-xl border-2 border-festivePurple/20 bg-yellow-50 flex flex-col items-center text-center transition-all';
+
+                // Restaurar el texto y su color
                 const titleElem = slotElem.querySelector('.slot-title');
-                titleElem.className = 'font-extrabold text-xs text-festivePurple slot-title leading-tight';
+
+                titleElem.className =
+                    'font-extrabold text-xs text-festivePurple slot-title leading-tight';
+
+                titleElem.textContent = 'Por descubrir';
             }
 
+            // Habilitar nuevamente el botón de giro
+            document.getElementById('spinBtn').disabled = false;
+
+            // Restaurar el texto del botón
+            document.getElementById('btnText').textContent = '¡GIRAR RULETA!';
+
+            // Dibujar nuevamente la ruleta
             drawWheel();
         }
 
