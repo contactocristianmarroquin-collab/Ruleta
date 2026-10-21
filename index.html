@@ -131,7 +131,7 @@
                 </div>
                 <!-- Progress Bar -->
                 <div class="w-36 sm:w-48 bg-festivePurpleLight h-3 rounded-full overflow-hidden p-0.5 border border-white/30">
-                    <div id="progressBar" class="bg-gradient-to-r from-festiveCyan via-festiveMagenta to-festiveOrange h-full rounded-full transition-all duration-500" style="width: 33.33%;"></div>
+                    <div id="progressBar" class="bg-gradient-to-r from-festiveCyan via-festiveMagenta to-festiveOrange h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
                 </div>
             </div>
 
@@ -493,7 +493,7 @@
 
             if (currentTurn < 3) {
                 roundIndicator.textContent = `Vuelta ${currentTurn + 1} de 3`;
-                progressBar.style.width = `${((currentTurn + 1) / 3) * 100}%`;
+                progressBar.style.width = `${((currentTurn) / 3) * 100}%`;
                 btnText.textContent = `¡GIRAR RULETA!`;
             } else {
                 roundIndicator.textContent = `¡3 de 3 Completados!`;
