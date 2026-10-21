@@ -64,7 +64,7 @@
     <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#2E1463 2px, transparent 2px); background-size: 24px 24px;"></div>
 
     <!-- Header / Title Banner -->
-    <header class="text-center my-2 z-10 w-full max-w-2xl flex flex-col items-center">
+    <header class="text-center my-2 z-10 w-full max-w-2xl flex flex-col items-center lg:hidden">
         <div class="inline-block bg-festivePurple text-festiveYellow text-xs sm:text-sm font-extrabold tracking-widest uppercase px-5 py-1.5 rounded-full shadow-md mb-1 border-2 border-festiveYellow">
             🎈 FESTIVAL DE LA ALEGRÍA 🎈
         </div>
@@ -74,13 +74,13 @@
     </header>
 
     <!-- Main Centered Layout -->
-    <main class="flex flex-col lg:flex-row items-center justify-center my-4 lg:my-auto z-10 w-full max-w-7xl gap-6 lg:gap-10 xl:gap-14 px-1 sm:px-2">
+    <main class="flex flex-col lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(380px,0.85fr)] items-center lg:items-stretch justify-center lg:justify-normal my-4 lg:my-0 lg:flex-1 lg:min-h-[calc(100vh-3rem)] z-10 w-full max-w-none gap-6 lg:gap-8 xl:gap-10 px-1 sm:px-2 lg:px-4">
         
         <!-- WHEEL: left side on desktop, centered on mobile -->
-        <div class="relative flex flex-col items-center justify-center w-full lg:w-auto lg:flex-none">
+        <div class="relative flex flex-col items-center justify-center w-full lg:w-full lg:h-full lg:min-h-0">
             
             <!-- Wheel Outer Frame -->
-            <div class="relative p-3 sm:p-5 rounded-full bg-festivePurple wheel-container-shadow border-4 sm:border-8 border-white">
+            <div class="relative p-3 sm:p-5 lg:p-4 xl:p-5 rounded-full bg-festivePurple wheel-container-shadow border-4 sm:border-8 border-white">
                 
                 <!-- Flecha indicadora -->
                 <div class="absolute -top-2 sm:-top-3 left-[45%] -translate-x-1/2 z-30 animate-pointer">
@@ -103,7 +103,7 @@
                 </div>
 
                 <!-- Canvas Wheel -->
-                <canvas id="wheelCanvas" width="500" height="500" class="w-[min(78vw,300px)] h-[min(78vw,300px)] sm:w-[440px] sm:h-[440px] lg:w-[min(36vw,390px)] lg:h-[min(36vw,390px)] xl:w-[440px] xl:h-[440px] rounded-full transition-all duration-300"></canvas>
+                <canvas id="wheelCanvas" width="500" height="500" class="w-[min(78vw,300px)] h-[min(78vw,300px)] sm:w-[440px] sm:h-[440px] lg:w-[min(48vw,620px)] lg:h-[min(48vw,620px)] xl:w-[min(49vw,680px)] xl:h-[min(49vw,680px)] 2xl:w-[min(50vw,740px)] 2xl:h-[min(50vw,740px)] rounded-full transition-all duration-300"></canvas>
 
                 <!-- Center Knob -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 sm:w-20 sm:h-20 bg-gradient-to-tr from-festivePurple to-festivePurpleLight rounded-full border-4 border-white shadow-2xl flex items-center justify-center z-20 pointer-events-none">
@@ -111,19 +111,21 @@
                 </div>
             </div>
 
-            <!-- Spin Button -->
-            <button id="spinBtn" onclick="spinWheel()" class="mt-5 relative group overflow-hidden rounded-2xl p-1 font-bold text-xl sm:text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(46,20,99,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
-                <span class="absolute inset-0 bg-gradient-to-r from-festiveMagenta via-festiveOrange to-festiveCyan rounded-2xl"></span>
-                <span class="relative block px-8 sm:px-12 py-3 sm:py-4 bg-festivePurple rounded-[12px] text-white font-festive tracking-wider border-2 border-festiveYellow flex items-center gap-3">
-                    <i id="spinIcon" class="fa-solid fa-rotate text-festiveYellow group-hover:rotate-180 transition-transform duration-500"></i>
-                    <span id="btnText" class="text-festiveYellow">¡GIRAR RULETA!</span>
-                </span>
-            </button>
         </div>
 
-        <!-- Status and game order: below wheel on mobile, right side on desktop -->
-        <div class="w-full max-w-xl lg:max-w-md xl:max-w-lg lg:flex-1 bg-white/90 backdrop-blur-md border-3 border-festivePurple rounded-2xl p-3 sm:p-4 shadow-xl flex flex-col gap-3">
-            
+        <!-- Columna derecha: títulos separados del panel en PC -->
+        <div class="w-full max-w-xl lg:max-w-none lg:w-full lg:min-h-[calc(100vh-3rem)] flex flex-col items-center gap-4 lg:gap-5 lg:py-40">
+            <header class="hidden lg:flex text-center w-full flex-col items-center shrink-0">
+                <div class="inline-block bg-festivePurple text-festiveYellow text-xs xl:text-sm font-extrabold tracking-widest uppercase px-4 py-1.5 rounded-full shadow-md mb-2 border-2 border-festiveYellow">
+                    🎈 FESTIVAL DE LA ALEGRÍA 🎈
+                </div>
+                <h1 class="w-full text-center text-[clamp(2.1rem,5.35vw,3.6rem)] font-black font-festive tracking-normal text-white text-stroke drop-shadow-purple leading-none whitespace-nowrap">
+                    RULETA DE JUEGOS
+                </h1>
+            </header>
+
+            <!-- Panel de progreso y cajas, separado visualmente de los títulos -->
+            <div class="w-full bg-white/90 backdrop-blur-md border-3 border-festivePurple rounded-2xl p-3 sm:p-4 lg:p-5 shadow-xl flex flex-col gap-3 lg:my-auto">
             <div class="flex items-center justify-between border-b-2 border-festivePurple/10 pb-2">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-flag-checkered text-festiveMagenta text-lg"></i>
@@ -160,11 +162,23 @@
             <button id="resetBtn" onclick="resetGameSequence()" class="hidden w-full py-2.5 px-4 bg-festivePurple hover:bg-festivePurpleLight text-festiveYellow rounded-xl text-xs sm:text-sm font-extrabold transition-all flex items-center justify-center gap-2 border-2 border-festiveYellow shadow-md mt-1">
                 <i class="fa-solid fa-rotate-left"></i> Reiniciar Secuencia
             </button>
+            </div>
+
+            <!-- Spin Button: bottom-right on desktop -->
+            <div class="w-full flex justify-center mt-1 lg:mt-0 shrink-0">
+                <button id="spinBtn" onclick="spinWheel()" class="relative group overflow-hidden rounded-2xl p-1 font-bold text-xl sm:text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(46,20,99,0.3)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                    <span class="absolute inset-0 bg-gradient-to-r from-festiveMagenta via-festiveOrange to-festiveCyan rounded-2xl"></span>
+                    <span class="relative block px-8 sm:px-12 py-3 sm:py-4 bg-festivePurple rounded-[12px] text-white font-festive tracking-wider border-2 border-festiveYellow flex items-center gap-3">
+                        <i id="spinIcon" class="fa-solid fa-rotate text-festiveYellow group-hover:rotate-180 transition-transform duration-500"></i>
+                        <span id="btnText" class="text-festiveYellow">¡GIRAR RULETA!</span>
+                    </span>
+                </button>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-2 text-center text-xs text-festivePurple font-extrabold z-10">
+    <footer class="mt-2 text-center text-xs text-festivePurple font-extrabold z-10 lg:hidden">
         Festival de la Alegría • Ruleta interactiva
     </footer>
 
